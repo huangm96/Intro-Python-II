@@ -41,11 +41,15 @@ player_name = input("Welcome to the game! What's your name?\n")
 # Make a new player object that is currently in the 'outside' room.
 player = Player(player_name, room=room['outside'])
 # Greet player
-print(f"Hello, player: {player_name}. Game start!")
+print(f"Hello, player: {player_name}. Game start!\n")
 
 # road_end_warning helper method
 def road_end_warning():
-    print ("You cannot go there!")
+    print("\nYou cannot go there!")
+
+# walking helper method
+def walking_print():
+    print("\nWALK.............")
 # commands rule
 direction_rule = ["w", "a", "s", "d", "q"]
 
@@ -64,35 +68,35 @@ while True:
     if moving == "w":
         try:
             player.room = player.room.n_to
-            print("WALK.............")
+            walking_print()
         except:
             road_end_warning()
             
     elif moving == "a":
         try:
             player.room = player.room.w_to
-            print("WALK.............")
+            walking_print()
         except:
             road_end_warning()
 
     elif moving == "s":
         try:
             player.room = player.room.s_to
-            print("WALK.............")
+            walking_print()
         except:
             road_end_warning()
 
     elif moving == "d":
         try:
             player.room = player.room.e_to
-            print("WALK.............")
+            walking_print()
         except:
             road_end_warning()
 # Print an error message if the movement isn't allowed.
     if not moving in direction_rule:
-        print("Wrong command! please re-enter:")
+        print("\nWrong command! please re-enter:")
         
 # If the user enters "q", quit the game.
     if moving == "q":
-        print(f"Bye! player: {player_name}")
+        print(f"\nBye! player: {player_name}\n")
         break
