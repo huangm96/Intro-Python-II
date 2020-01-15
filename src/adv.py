@@ -98,5 +98,5 @@ while True:
         
 # If the user enters "q", quit the game.
     if moving == "q":
-        print(f"\nBye! player: {player_name}\n")
+        print(f"\nBye! player: {player_name}. Thank you for playing!\n")
         break
