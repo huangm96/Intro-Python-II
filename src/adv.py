@@ -36,17 +36,63 @@ room['treasure'].s_to = room['narrow']
 #
 # Main
 #
-print(room['outside'].name)
+# Ask player's name
+player_name = input("Welcome to the game! What's your name?\n")
 # Make a new player object that is currently in the 'outside' room.
-player = Player("MH", room['outside'])
-print(player.room.name)
+player = Player(player_name, room=room['outside'])
+# Greet player
+print(f"Hello, player: {player_name}. Game start!")
+
+# road_end_warning helper method
+def road_end_warning():
+    print ("You cannot go there!")
+# commands rule
+direction_rule = ["w", "a", "s", "d", "q"]
+
+
+
 # Write a loop that:
-#
+moving = ""
+while True:
+
 # * Prints the current room name
+    print("Current Room: ",player.room.name)
 # * Prints the current description (the textwrap module might be useful here).
 # * Waits for user input and decides what to do.
-#
+    moving = input("Please enter the direction: w(north), s(south), a(west), d(east), q(quit): \n")
 # If the user enters a cardinal direction, attempt to move to the room there.
+    if moving == "w":
+        try:
+            player.room = player.room.n_to
+            print("WALK.............")
+        except:
+            road_end_warning()
+            
+    elif moving == "a":
+        try:
+            player.room = player.room.w_to
+            print("WALK.............")
+        except:
+            road_end_warning()
+
+    elif moving == "s":
+        try:
+            player.room = player.room.s_to
+            print("WALK.............")
+        except:
+            road_end_warning()
+
+    elif moving == "d":
+        try:
+            player.room = player.room.e_to
+            print("WALK.............")
+        except:
+            road_end_warning()
 # Print an error message if the movement isn't allowed.
-#
+    if not moving in direction_rule:
+        print("Wrong command! please re-enter:")
+        
 # If the user enters "q", quit the game.
+    if moving == "q":
+        print(f"Bye! player: {player_name}")
+        break
