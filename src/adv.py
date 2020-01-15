@@ -63,7 +63,7 @@ while True:
     print("Current Room: ",player.room.name)
 # * Prints the current description (the textwrap module might be useful here).
 # * Waits for user input and decides what to do.
-    moving = input("Please enter the direction: w(north), s(south), a(west), d(east), q(quit): \n")
+    moving = input("Please enter the direction: w(north), s(south), a(west), d(east), q(quit): \n").lower()
 # If the user enters a cardinal direction, attempt to move to the room there.
     if moving == "w":
         try:
