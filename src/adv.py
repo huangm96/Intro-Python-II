@@ -49,7 +49,7 @@ def road_end_warning():
 
 # walking helper method
 def walking_print():
-    print("\nWALK.............")
+    print("\nWALKING.............")
 # commands rule
 direction_rule = ["w", "a", "s", "d", "q"]
 
