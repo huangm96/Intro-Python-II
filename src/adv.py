@@ -43,62 +43,27 @@ player = Player(player_name, room=room['outside'])
 # Greet player
 print(f"Hello, player: {player_name}. Game start!\n")
 
-# road_end_warning helper method
-def road_end_warning():
-    print("\nYou cannot go there!")
 
-# walking helper method
-def walking_print():
-    print("\nWALKING.............")
 # commands rule
-direction_rule = ["w", "a", "s", "d", "q"]
-
-
+direction_rule = ["n", "s", "e", "w", "q"]
 
 # Write a loop that:
-moving = ""
+moving_cmd = ""
 while True:
 
 # * Prints the current room name
-    print("Current Room: ",player.room.name)
-# * Prints the current description (the textwrap module might be useful here).
-    print("Description: ", player.room.description)
+    print(player.room)
 
 # * Waits for user input and decides what to do.
-    moving = input("Please enter the direction: w(north), s(south), a(west), d(east), q(quit): \n").lower()
-# If the user enters a cardinal direction, attempt to move to the room there.
-    if moving == "w":
-        try:
-            player.room = player.room.n_to
-            walking_print()
-        except:
-            road_end_warning()
-            
-    elif moving == "a":
-        try:
-            player.room = player.room.w_to
-            walking_print()
-        except:
-            road_end_warning()
-
-    elif moving == "s":
-        try:
-            player.room = player.room.s_to
-            walking_print()
-        except:
-            road_end_warning()
-
-    elif moving == "d":
-        try:
-            player.room = player.room.e_to
-            walking_print()
-        except:
-            road_end_warning()
-# Print an error message if the movement isn't allowed.
-    if not moving in direction_rule:
-        print("\nWrong command! please re-enter:")
-        
-# If the user enters "q", quit the game.
-    if moving == "q":
+    moving_cmd = input("Please enter the direction: n(north), s(south), w(west), e(east), q(quit): \n").lower()
+    # If the user enters "q", quit the game.
+    if moving_cmd == "q":
         print(f"\nBye! player: {player_name}. Thank you for playing!\n")
         break
+# Print an error message if the movement isn't allowed.
+    elif not moving_cmd in direction_rule:
+        print("\nWrong command! please re-enter:")
+    else:
+        player.moving_direction(moving_cmd)
+
+    
