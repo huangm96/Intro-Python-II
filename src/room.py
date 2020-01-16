@@ -10,12 +10,14 @@ class Room:
         self.s_to = None
         self.e_to = None
         self.w_to = None
+        # items in room
         self.items = []
     
     def __str__(self):
         display = ""
         display += f"\nCurrent Room: {self.name}\n"
         display += f"\nDescription: {self.description}\n"
+        display += f"\nItems in the Room: {self.items}\n"
         return display
     
     def get_room_in_direction(self, direction_cmd):
