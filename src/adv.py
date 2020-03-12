@@ -1,5 +1,5 @@
 from room import Room
-
+from player import Player
 # Declare all the rooms
 
 room = {
@@ -33,19 +33,89 @@ room['narrow'].w_to = room['foyer']
 room['narrow'].n_to = room['treasure']
 room['treasure'].s_to = room['narrow']
 
-#
+# Items in Rooms
+room['foyer'].items = ['a sword']
+room['treasure'].items = ['a silver key']
+
+
+
 # Main
 #
-
+# Ask player's name
+player_name = input("Welcome to the game! What's your name?\n~~>   ")
 # Make a new player object that is currently in the 'outside' room.
+player = Player(player_name, room=room['outside'])
+# Greet player
+print(f"\nHello, player: {player_name}.\n\n********************* Game starts! ****************************** ")
 
+
+# commands rule
+direction_rule = ["n", "s", "e", "w"]
+action_rule = [1, 2, 3, 4]
+
+# action_helper_function
+def action_helper_function(action_cmd):
+    # if player enters 1, pick up item
+    if action_cmd == 1:
+        # print no item if the room is empty
+        if len(player.room.items) == 0:
+            print("\n*********************** There is no item in this room! ************************")
+        # pick up item
+        else:
+            picked_up_item = input("Please Enter the item's name that you want to pick up: ")
+            player.pick_up_item(picked_up_item)
+
+    # if player enters 2, drop off item
+    elif action_cmd == 2:
+        # print no item if player's backpack is empty
+        if len(player.backpack) == 0:
+            print("\n*********************** You do not have any item! **********************")
+        # drop off item
+        else:
+            print(f"Your backpack: {player.backpack}")
+            dropped_item = input("Please Enter the item's name that you want to drop down: ")
+            player.drop_item(dropped_item)
+    
+    # if player enters 3, go to a new room
+    elif action_cmd == 3:
+        moving_cmd = ""
+        while True:
+            # Let player chooses direction:[n(north), s(south), w(west), e(east),q(quit)]
+            moving_cmd = input("Please enter the direction: n(north), s(south), w(west), e(east),q(quit): \n~~>   ").lower()
+            # if player enters q, go to upper level, let player chooses actions
+            if moving_cmd == "q":
+                break
+            # if player enter wrong cmd, give warning
+            elif not moving_cmd in direction_rule:
+                print("\nWrong command! please re-enter:")
+            # else 
+            else:
+                player.travel(moving_cmd)
+                break
 # Write a loop that:
-#
-# * Prints the current room name
-# * Prints the current description (the textwrap module might be useful here).
-# * Waits for user input and decides what to do.
-#
-# If the user enters a cardinal direction, attempt to move to the room there.
-# Print an error message if the movement isn't allowed.
-#
-# If the user enters "q", quit the game.
+
+action_cmd = ""
+
+
+while True:
+    # * Prints the current room info
+    print(player.room)
+# Let player chooses action:[1.pick_up item 2.drop item 3.leaving the room 4.quit the game]
+    print('''Please enter the action:\n
+   1.pick_up item \n   2.drop item \n   3.leaving the room \n   4.quit the game \n''' )
+    
+    # Waits for player input and decides what to do.
+    action_cmd = int(input("~~>   "))
+#     # If the player enters "4", quit the game.
+    if action_cmd == 4:
+        print(f"\nBye! player: {player_name}. Thank you for playing!\n")
+        break
+#     # If the player does not enter correct cmd, give warning.
+    elif not action_cmd in action_rule:
+        print("\nWrong command! please re-enter:")
+    # else go to the action helper function.
+    else:
+        action_helper_function(action_cmd)
+    
+
+    
